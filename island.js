@@ -76,47 +76,88 @@ function countIslands(matrix) {
   // Return island count
   
   // Your code here 
+  let visited = new Set();
+  let count = 0;
+
+
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      let currentVal = matrix[i][j];
+      let row = i;
+      let col = j;
+      let currentNode = [row, col]
+      
+      if (currentVal === 1 && !visited.has(currentNode.toString())) {
+        count++;
+        // traverse through the island;
+        let size = 0;
+        let queue = [[row, col]];
+        
+
+        while (queue.length) {
+          let current = queue.shift();
+
+          if (!visited.has(current.toString())) visited.add(current.toString());
+
+          let neighbors = getNeighbors(current[0], current[1], matrix);
+
+          for (let neighbor of neighbors) {
+            if (!visited.has(neighbor.toString())) {
+              visited.add(neighbor.toString());
+              queue.push(neighbor);
+            }
+          }
+        }
+        
+
+      }
+    }
+  }
+
+  return count;
+
 }
 
 // Uncomment the lines below for local testing
-// const matrix = [
-//                 [1,1,1,0,0],
-//                 [0,1,1,0,1],
-//                 [0,1,1,0,1]
-//               ]
+const matrix = [
+                [1,1,1,0,0],
+                [0,1,1,0,1],
+                [0,1,1,0,1]
+              ]
 
 // console.log(getNeighbors(1, 1, matrix)); // [[0, 0], [0, 1], [0, 2], [1, 2], [2, 1], [2, 2]]
 // console.log(getNeighbors(2,4, matrix)) // [[1,4]]
 
-// const matrix2 = [
-//                     [1,1,1,0,1],
-//                     [0,0,0,0,1],
-//                     [1,0,0,1,0],
-//                 ]
+const matrix2 = [
+                    [1,1,1,0,1],
+                    [0,0,0,0,1],
+                    [1,0,0,1,0],
+                ]
 
-// console.log(countIslands(matrix)) // 2
+console.log(countIslands(matrix)) // 2
 // console.log(countIslands(matrix2)); // 3
 
 module.exports = [countIslands, getNeighbors];
 
-matrix1 = [
-  [1,1,1,1,0],
-  [0,1,1,0,1],
-  [0,1,1,0,1],
-]
+// matrix1 = [
+//   [1,1,1,1,0],
+//   [0,1,1,0,1],
+//   [0,1,1,0,1],
+// ]
 
-matrix2 = [
-  [1,1,1,0,0],
-  [0,1,1,0,1],
-  [0,1,1,0,1],
-]
+// matrix2 = [
+//   [1,1,1,0,0],
+//   [0,1,1,0,1],
+//   [0,1,1,0,1],
+// ]
 
-matrix3 = [
-  [0,0,1,0,0,1,1],
-  [1,1,0,0,1,0,1],
-  [0,0,0,1,0,0,1],
-  [1,0,1,0,0,1,1],
-]
+// matrix3 = [
+//   [0,0,1,0,0,1,1],
+//   [1,1,0,0,1,0,1],
+//   [0,0,0,1,0,0,1],
+//   [1,0,1,0,0,1,1],
+// ]
 
 
 matrix4 = [
@@ -144,8 +185,8 @@ matrix4 = [
 //            0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19
 ]
 
-console.log(getNeighbors(1, 1, matrix1))//.to.have.deep.members([[0, 0], [0, 1], [0, 2], [1,2], [2,1], [2,2]])
-console.log(getNeighbors(0, 0, matrix2))//.to.have.deep.members([[0, 1], [1, 1]]);
-console.log(getNeighbors(19, 19, matrix4))//.to.have.deep.members([[18, 18]]);
-console.log(getNeighbors(3, 4, matrix3))//.to.have.deep.members([[3, 5], [2, 3]]);
-console.log(getNeighbors(13, 14, matrix4))//.to.have.deep.members([[12, 13], [12, 14], [12, 15], [13, 13], [13, 15], [14, 13], [14, 14], [14, 15]]);
+// console.log(getNeighbors(1, 1, matrix1))//.to.have.deep.members([[0, 0], [0, 1], [0, 2], [1,2], [2,1], [2,2]])
+// console.log(getNeighbors(0, 0, matrix2))//.to.have.deep.members([[0, 1], [1, 1]]);
+// console.log(getNeighbors(19, 19, matrix4))//.to.have.deep.members([[18, 18]]);
+// console.log(getNeighbors(3, 4, matrix3))//.to.have.deep.members([[3, 5], [2, 3]]);
+// console.log(getNeighbors(13, 14, matrix4))//.to.have.deep.members([[12, 13], [12, 14], [12, 15], [13, 13], [13, 15], [14, 13], [14, 14], [14, 15]]);
